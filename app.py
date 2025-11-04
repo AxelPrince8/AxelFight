@@ -5,9 +5,7 @@ import threading
 import os
 
 app = Flask(__name__)
-@app.route("/")
-def home():
-    return render_template("index.html")
+
 PAGE_ACCESS_TOKEN = "YOUR_FACEBOOK_PAGE_ACCESS_TOKEN"
 
 def send_fb_message(recipient_id, message):
@@ -50,7 +48,7 @@ def send_message():
 # Home route for Render root URL
 @app.route("/")
 def home():
-    return "<h2>Facebook Auto Message Tool Backend is Running!</h2>"
+    return render_template("index.html")
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
