@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify
 import requests
 import time
 import threading
+import os
 
 app = Flask(__name__)
 
@@ -44,5 +45,6 @@ def send_message():
 
     return jsonify({"message": "Message scheduled"}), 200
 
-port = int(os.environ.get("PORT", 5000))
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
