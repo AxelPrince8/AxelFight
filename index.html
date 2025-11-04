@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Facebook Auto Message Tool</title>
+<style>
+  body { background: #222; color: #eee; font-family: Arial, sans-serif; padding: 30px; }
+  label, input, button { display: block; margin-bottom: 15px; width: 100%; max-width: 400px; }
+  input, button { padding: 10px; border-radius: 5px; border: none; }
+  button { background: #4caf50; color: #fff; cursor: pointer; }
+  button:hover { background: #45a049; }
+</style>
+</head>
+<body>
+
+<h2>Facebook Auto Message Tool</h2>
+
+<form id="messageForm">
+  <label>Recipient Facebook ID:</label>
+  <input type="text" id="recipientId" placeholder="Enter Facebook User ID" required />
+
+  <label>Your Name for Display:</label>
+  <input type="text" id="displayName" placeholder="Enter Name to Display" />
+
+  <label>Message Text:</label>
+  <input type="text" id="messageText" placeholder="Enter Message" required />
+
+  <label>Delay in Seconds:</label>
+  <input type="number" id="delaySeconds" value="10" min="1" />
+
+  <button type="submit">Send Message</button>
+</form>
+
+<script>
+  document.getElementById("messageForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const recipientId = document.getElementById("recipientId").value;
+    const displayName = document.getElementById("displayName").value;
+    const messageText = document.getElementById("messageText").value;
+    const delaySeconds = parseInt(document.getElementById("delaySeconds").value, 10);
+
+    // Call backend API to send message
+    const response = await fetch("/send-message", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ recipientId, displayName, messageText, delaySeconds })
+    });
+
+    if(response.ok) {
+      alert("Message scheduled to send!");
+    } else {
+      alert("Failed to send message!");
+    }
+  });
+</script>
+
+</body>
+</html>
