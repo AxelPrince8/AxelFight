@@ -5,7 +5,9 @@ import threading
 import os
 
 app = Flask(__name__)
-
+@app.route("/")
+def home():
+    return render_template("index.html")
 PAGE_ACCESS_TOKEN = "YOUR_FACEBOOK_PAGE_ACCESS_TOKEN"
 
 def send_fb_message(recipient_id, message):
